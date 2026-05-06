@@ -13,9 +13,15 @@ return(
             </p>
             <p className="text-lg">Acesse minhas redes sociais</p>
             <div className="flex gap-2">
-                <LinkedinLogoIcon size={48} weight="bold"/>
+                <a href="www.linkedin.com/in/kauaviniciussabino2707" target="_blank">
+                    <LinkedinLogoIcon size={48} weight="bold"/>
+                </a>
+                <a href="https://github.com/Kauvinzera" target="_blank">
                 <GithubLogoIcon size={48} weight="bold"/>
-                <InstagramLogoIcon size={48} weight="bold"/>
+                </a>
+                <a href="https://www.instagram.com/kauvin_sabino/" target="_blank">
+                    <InstagramLogoIcon size={48} weight="bold"/>
+                </a>
             </div>
         </div>
     </div>
