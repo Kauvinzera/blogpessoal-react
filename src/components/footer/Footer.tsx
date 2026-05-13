@@ -6,8 +6,8 @@ let data = new Date().getFullYear();
 
 return(
 <>
-    <div className="min-h-screen flex justify-center bg-indigo-900 text-white">
-        <div className="containter flex flex-col items-center py-4">
+    <div className="w-full flex justify-center bg-indigo-900 text-white">
+        <div className="container flex flex-col items-center py-4">
             <p className="text-xl font-bold">
                 Blog Pessoal Kauã Vinícius | Copyright: {data}
             </p>

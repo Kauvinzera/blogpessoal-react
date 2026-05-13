@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../contexts/AuthContext";
  
@@ -15,24 +15,37 @@ function Navbar() {
         alert('O Usuário foi desconectado com sucesso!')
         navigate('/')
     }
+
+
+    const [usuarioLogado, setUsuarioLogado] = useState<boolean>(false)
+    const token = usuario.token
+    
+        useEffect(() => {
+            if (token === '') {
+                setUsuarioLogado(false)
+            } else  {
+                setUsuarioLogado(true)
+            }
+
+        }, [token])
     
     return (
-<>
-<div className='w-full flex justify-center py-4
+        <>
+            <div className='w-full flex justify-center py-4
             			   bg-indigo-900 text-white'>
-<div className="container flex justify-between text-lg mx-8">
-<Link to='/home' className="text-2xl font-bold">Blog Pessoal</Link>
-<p>Bem Vindo {usuario.nome}</p>
+                <div className="container flex justify-between text-lg mx-8">
+                    <Link to='/home' className="text-2xl font-bold">Blog Pessoal</Link>
+                    <p>{usuarioLogado ? "Bem-vindo " + usuario.nome : ""}</p>
                     <div className='flex gap-4'>
-                        Postagens
+                        <Link to='/postagens' className="hover:underline">Postagens</Link>
                         <Link to='/temas' className="hover:underline">Temas</Link>
                         <Link to='/cadastartema' className="hover:underline">Cadastrar tema</Link>
                         Perfil
-<Link to='' onClick={logout} className='hover:underline'>Sair</Link>
-</div>
-</div>
-</div>
-</>
+                        <Link to='' onClick={logout} className='hover:underline'>Sair</Link>
+                    </div>
+                </div>
+            </div>
+        </>
     )
 }
  

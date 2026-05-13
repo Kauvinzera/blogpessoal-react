@@ -1,20 +1,19 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import type Tema from "../../../models/Tema";
-import { deletarTema, listarTodosTemas } from "../../../services/Service";
+import type Postagem from "../../../models/Postagem";
+import { deletarPostagem, listarTodasPostagens } from "../../../services/Service";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { ClipLoader } from "react-spinners";
 
-function DeletarTema() {
+function DeletarPostagem() {
 
 const navigate = useNavigate();
 
-//armazena dados do Tema
-const [tema, setTema] = useState<Tema>({} as Tema)
+//armazena dados do Postagem
+const [postagem, setPostagem] = useState<Postagem>({} as Postagem)
 
 const [isLoading, setIsLoading] = useState<boolean>(false)
 
-//
 const {id} = useParams<{ id: string }>()
 
 const {usuario, handleLogout } = useContext(AuthContext)
@@ -22,7 +21,7 @@ const token = usuario.token
 
 async function buscarPorId(id:string) {
     try {
-        await listarTodosTemas(`/temas/${id}`, setTema, {
+        await listarTodasPostagens(`/postagens/${id}`, setPostagem, {
                     headers: {Authorization: token}
                 }) 
     } catch (error: any) {
@@ -47,22 +46,22 @@ useEffect (() => {
 }, [id])
 
 function retornar() {
-    navigate("/temas")
+    navigate("/Postagens")
 }
 
-async function apagarTema() {
+async function apagarPostagem() {
     setIsLoading(true)
 
     try {
-        await deletarTema(`/temas/${id}`, {
+        await deletarPostagem(`/postagens/${id}`, {
             headers: {'Authorization': token}
         }) 
-        alert ("Tema foi apagado com sucesso!")
+        alert ("Postagem foi apagado com sucesso!")
     } catch (error: any) {
         if (error.toString().includes('401')) {
             handleLogout()
     } else {
-        alert("Erro ao deletar o tema.")
+        alert("Erro ao deletar Postagem.")
     }
    }
 
@@ -74,19 +73,20 @@ async function apagarTema() {
     return (
         <>
         <div className="container w-1/3 mx-auto">
-            <h1 className="text-center text-4xl my-4">Deletar Tema</h1>
-            <p className="text-center font-semibold mb-4">Você tem certeza de que deseja apagar o tema a seguir?</p>
+            <h1 className="text-center text-4xl my-4">Deletar Postagem</h1>
+            <p className="text-center font-semibold mb-4">Você tem certeza de que deseja apagar a Postagem a seguir?</p>
             <div className="border flex flex-col rounded-xl overflow-hidden justify-between">
-                <header 
-                className="bg-indigo-600 text-white font-bold text-2x1 py-2 px-6">
-                    Tema
+                <header  
+                className="bg-indigo-600 text-white font-bold text-4x1 py-2 px-6">
+                    Postagem
                 </header>
-                <p className='p-8 text-3xl bg-slate-200 h-full'>{tema.descricao}</p>   
+                <p className='p-4 text-3xl bg-slate-200 h-full'>{postagem.titulo}</p>
+                <p className='p-4 text-2xl bg-slate-200 h-full'>{postagem.texto}</p>     
                 <div className="flex">
                     <button className="w-full text-slate-100 bg-red-400 hover:bg-red-600 py-2" onClick={retornar}>
                         Não
                     </button>
-                    <button className="w-full text-slate-100 bg-indigo-400 hover:bg-indigo-800" onClick={apagarTema}>
+                    <button className="w-full text-slate-100 bg-indigo-400 hover:bg-indigo-800" onClick={apagarPostagem}>
                         { isLoading ?
                         <ClipLoader color="#ffffff" size={24}/> : <span>Sim</span>             
                          }
@@ -99,4 +99,4 @@ async function apagarTema() {
     )
 }
 
-export default DeletarTema
+export default DeletarPostagem
