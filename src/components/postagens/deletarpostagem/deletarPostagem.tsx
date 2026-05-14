@@ -4,6 +4,7 @@ import type Postagem from "../../../models/Postagem";
 import { deletarPostagem, listarTodasPostagens } from "../../../services/Service";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { ClipLoader } from "react-spinners";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function DeletarPostagem() {
 
@@ -34,7 +35,7 @@ async function buscarPorId(id:string) {
 
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado!')
+            ToastAlerta('Você precisa estar logado!', 'erro')
             navigate('/')
         }
     }, [token])
@@ -56,12 +57,12 @@ async function apagarPostagem() {
         await deletarPostagem(`/postagens/${id}`, {
             headers: {'Authorization': token}
         }) 
-        alert ("Postagem foi apagado com sucesso!")
+        ToastAlerta("Postagem foi apagado com sucesso!", "sucesso")
     } catch (error: any) {
         if (error.toString().includes('401')) {
             handleLogout()
     } else {
-        alert("Erro ao deletar Postagem.")
+        ToastAlerta("Erro ao deletar Postagem.", "erro")
     }
    }
 

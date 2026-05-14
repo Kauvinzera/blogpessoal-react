@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { listarTodasPostagens } from "../../../services/Service";
 import type Postagem from "../../../models/Postagem";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function ListaPostagens () {
 
@@ -19,7 +20,7 @@ function ListaPostagens () {
 
     useEffect(() => {
         if (token === "") {
-            alert("Você precisa estar logado!")
+            ToastAlerta("Você precisa estar logado!", "erro")
             navigate('/')
     }
     }, [token])

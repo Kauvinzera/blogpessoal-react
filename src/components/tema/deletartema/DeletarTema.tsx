@@ -4,6 +4,7 @@ import type Tema from "../../../models/Tema";
 import { deletarTema, listarTodosTemas } from "../../../services/Service";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { ClipLoader } from "react-spinners";
+import { ToastAlerta } from "../../../utils/ToastAlerta";
 
 function DeletarTema() {
 
@@ -35,7 +36,7 @@ async function buscarPorId(id:string) {
 
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado!')
+            ToastAlerta('Você precisa estar logado!', 'erro')
             navigate('/')
         }
     }, [token])
@@ -57,12 +58,12 @@ async function apagarTema() {
         await deletarTema(`/temas/${id}`, {
             headers: {'Authorization': token}
         }) 
-        alert ("Tema foi apagado com sucesso!")
+        ToastAlerta("Tema foi apagado com sucesso!", "sucesso")
     } catch (error: any) {
         if (error.toString().includes('401')) {
             handleLogout()
     } else {
-        alert("Erro ao deletar o tema.")
+        ToastAlerta("Erro ao deletar o tema.", "erro")
     }
    }
 

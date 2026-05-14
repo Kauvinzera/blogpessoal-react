@@ -2,6 +2,7 @@ import { useState, type ReactNode } from "react";
 import type UsuarioLogin from "../models/UsuarioLogin";
 import React from "react";
 import { login } from "../services/Service";
+import { ToastAlerta } from "../utils/ToastAlerta";
 
 interface AuthContextProps {
 
@@ -45,9 +46,9 @@ async function handleLogin(usuarioLogin: UsuarioLogin) {
         try {
             // função login da service recebendo parametros de URL da pagina, dados do usuario, e função para alterar o usuario
             await login(`/usuarios/logar`, usuarioLogin, setUsuario)
-            alert("O Usuário foi autenticado com sucesso!")
+            ToastAlerta("Usuário foi autenticado com sucesso!", "sucesso")
         } catch (error) {
-            alert("Os Dados do usuário estão inconsistentes!")
+            ToastAlerta("Os dados do Usuário estão inconsistentes!", "erro")
         }
         setIsLoading(false)
     }
@@ -62,6 +63,7 @@ function handleLogout() {
             foto: "",
             token: ""
         })
+    
     }
 
     //Retorna em HTML o contexto com o corpo Children
