@@ -64,7 +64,7 @@ function FormPostagem () {
     }
 
     function retornar() {
-    navigate("/temas")
+    navigate("/postagens")
     }
 
     async function gerarNovaPostagem(e: FormEvent<HTMLFormElement>) {
